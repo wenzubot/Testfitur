@@ -1,0 +1,107 @@
+
+        @import url('css2_1.css');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            scroll-behavior: smooth;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .waifu-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .waifu-card:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        #musicToggle {
+            transition: all 0.3s ease;
+        }
+        #sidebar {
+  transition: transform 0.4s ease-in-out;
+}
+/* Glow & Neon Text */
+.glow-text {
+  text-shadow: 0 0 5px #3b82f6, 0 0 10px #3b82f6, 0 0 20px #2563eb;
+}
+
+/* Smooth Hover & Scale */
+.smooth-hover {
+  transition: all 0.3s ease;
+}
+.smooth-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(59,130,246,0.6);
+}
+
+/* Animated Gradient Background */
+.animated-gradient {
+  background: linear-gradient(270deg, #3b82f6, #9333ea, #ec4899);
+  background-size: 600% 600%;
+  animation: gradientShift 8s ease infinite;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Section Fade-in Slide */
+.section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Glow Progress Bar */
+.progress-bar {
+  box-shadow: 0 0 10px rgba(59,130,246,0.7);
+  transition: width 1.5s ease-in-out;
+}
+
+/* Neon Card Border */
+.neon-card {
+  border: 1px solid rgba(59,130,246,0.5);
+  box-shadow: 0 0 15px rgba(59,130,246,0.3);
+  transition: all 0.3s ease;
+}
+.neon-card:hover {
+  box-shadow: 0 0 25px rgba(59,130,246,0.7);
+}
+    
