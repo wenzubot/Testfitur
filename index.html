@@ -1,0 +1,387 @@
+<!DOCTYPE html><html class="dark" lang="id"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+<title>Khafa Personal Website</title>
+<script src="3.4.17"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/index.js"></script>
+<script src="sweetalert2%4011"></script>
+<link href="css/css2.css" rel="stylesheet">
+
+
+<link href="css/style.css" rel="stylesheet"></head>
+<body class="dark text-text overflow-x-hidden">
+<div class="fixed top-4 right-4 z-50">
+<button class="p-3 rounded-xl border border-accent text-accent text-xl bg-card shadow-lg" onclick="toggleSidebar()">
+<i class="ph ph-list"></i>
+</button>
+</div>
+<div class="fixed top-0 right-0 h-full w-64 bg-card border-l border-border shadow-2xl transform translate-x-full z-50" id="sidebar">
+<div class="flex justify-between items-center px-4 py-4 border-b border-border">
+<h2 class="font-bold text-lg text-white">Menu</h2>
+<button class="text-white text-2xl" onclick="toggleSidebar()"><i class="ph ph-x"></i></button>
+</div>
+<nav class="flex flex-col divide-y divide-border">
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('portofolio'); toggleSidebar();">📁 Portofolio Khafa XD</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('privateFiles'); toggleSidebar();">☁️ Khafa XD Cloud</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('apkbuilder'); toggleSidebar();">📲 Web to apk Khafa XD</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('encode'); toggleSidebar();">🔒 Encode Hard JS</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('scan'); toggleSidebar();">🔍 Scan Phishing</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('music'); toggleSidebar();">🎵 Search Lagu</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('getcode'); toggleSidebar();">📄 Get Code</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('chatbotDeepSeek'); toggleSidebar();">🤖 Chat Bot DeepSeek</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('tiktok'); toggleSidebar();">📥 TikTok Downloader</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('encoderHtml'); toggleSidebar();">🔒 ENC HTML</button>
+<button class="text-left px-6 py-4 text-white hover:bg-blue-800" onclick="showSection('deploy'); toggleSidebar();">🚀 Deploy HTML</button>
+</nav>
+</div>
+<main class="p-6 max-w-6xl mx-auto space-y-12">
+<div class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white p-4 rounded-lg shadow-lg z-50 transition-opacity duration-200" id="notification">
+<span>Req hapus web ke tele,tele ku di portofolio</span>
+<button class="ml-4 text-white font-bold" onclick="closeNotification()">ㅤ</button>
+</div>
+<!-- upload file privat  Section -->
+<section class="hidden space-y-6" id="privateFiles">
+<div class="bg-card p-6 rounded-xl border border-border text-white max-w-2xl mx-auto">
+<h1 class="text-2xl font-bold text-cyan-400 mb-4">📂 Penyimpanan GitHub Privat</h1>
+<div class="hidden text-red-400 font-bold" id="privateAccessDenied">❌ Akses ditolak. IP kamu tidak diizinkan.</div>
+<div class="hidden space-y-4" id="privateContent">
+<input class="w-full p-2 rounded bg-slate-800 border border-slate-700" id="privateFile" multiple="" type="file">
+<button class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded" onclick="uploadToGithub()">⬆️ Upload Banyak</button>
+<div class="space-y-2" id="privateFileList"></div>
+</div>
+</div>
+</section>
+<section class="hidden space-y-6" id="encoderHtml">
+<div class="bg-card p-6 rounded-xl shadow border border-border max-w-2xl mx-auto">
+<h1 class="text-2xl font-bold text-center text-cyan-400">🔒 Ranz XD HTML Encoder</h1>
+<!-- Upload File HTML -->
+<div>
+<label class="block mb-2 font-semibold">📂 Upload File HTML</label>
+<input accept=".html" class="w-full p-2 rounded bg-gray-800 text-white border border-gray-700" id="encFile" type="file">
+</div>
+<!-- Textarea Input HTML -->
+<div>
+<label class="block mb-2 font-semibold">✍️ Atau Tempel Kode HTML</label>
+<textarea class="w-full p-2 rounded bg-gray-800 text-white border border-gray-700" id="encText" placeholder="<!DOCTYPE html>..." rows="6"></textarea>
+</div>
+<!-- Tombol Encode -->
+<button class="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 rounded text-white font-semibold" onclick="encodeHTMLBase64()">
+      🚀 Encode Sekarang
+    </button>
+<!-- Hasil -->
+<div class="mt-6 hidden bg-gray-900 text-white p-4 rounded-lg border border-gray-700 overflow-auto" id="encResult"></div>
+</div>
+</section>
+<!-- Encode Hard JS Section -->
+<section class="hidden" id="encode">
+<div class="card max-w-2xl w-full p-6 rounded-xl shadow-lg space-y-4 bg-card border border-border">
+<h1 class="text-2xl font-bold text-center text-cyan-400">Ranz XD JS Encryptor Hard</h1>
+<div>
+<label class="block font-semibold mb-2">📂 Upload File JavaScript</label>
+<input accept=".js" class="w-full p-2 rounded-md bg-slate-800 text-white border border-slate-700" id="fileInput" type="file">
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="flex-1 py-2 px-4 bg-cyan-600 text-white rounded hover:bg-cyan-700 font-semibold" onclick="encodeHard()">🔒 Encode Hard</button>
+<button class="flex-1 py-2 px-4 bg-emerald-500 text-black rounded hover:bg-emerald-600 font-semibold" onclick="downloadOutput()">💾 Download .js</button>
+</div>
+</div>
+</section>
+<section class="space-y-6 hidden" id="portofolio">
+<div class="container mx-auto px-4 py-12 max-w-6xl text-white">
+<header class="text-center mb-16">
+<div class="flex justify-center mb-6">
+<img alt="Logo" class="w-24 h-24 rounded-full object-cover border-4 border-indigo-500 floating" src="images/hr1fhk.jpg">
+</div>
+<h1 class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">Ranz XD&gt;</h1>
+<p class="text-lg text-gray-400 mb-4">Pelajar | Developer | Indonesia</p>
+<div class="inline-block px-4 py-2 bg-indigo-900/50 rounded-full text-indigo-300">
+<i class="fas fa-birthday-cake mr-2"></i>
+<span id="birthdayCountdown">Loading...</span>
+</div>
+</header>
+<section class="mb-16">
+<div class="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm border border-gray-700/50">
+<h2 class="text-2xl font-semibold mb-4 text-indigo-400 flex items-center">
+<i class="fas fa-user mr-3"></i> Tentang Saya
+        </h2>
+<p class="mb-4 text-gray-300">
+          Halo! Nama saya Ranz XD, seorang pelajar berusia <span id="age">15</span> tahun dari Indonesia. 
+          Saya memiliki passion di bidang pengembangan software dan senang mempelajari teknologi baru.
+        </p>
+<p class="text-gray-300">
+          Saat ini saya fokus mengembangkan skill pemrograman dan berharap bisa menjadi developer profesional di masa depan.
+        </p>
+</div>
+</section>
+<section class="mb-16 section">
+<div class="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm border border-gray-700/50">
+<h2 class="text-2xl font-semibold mb-6 text-indigo-400 flex items-center">
+<i class="fas fa-code mr-3"></i> Skills &amp; Kemampuan
+    </h2>
+<div class="space-y-5">
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">JavaScript</span>
+<span class="text-indigo-300" id="js-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="js-bar" style="width: 0%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">Java</span>
+<span class="text-indigo-300" id="java-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="java-bar" style="width: 0%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">HTML</span>
+<span class="text-indigo-300" id="html-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="html-bar" style="width: 0%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">CSS</span>
+<span class="text-indigo-300" id="css-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="css-bar" style="width: 0%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">Python</span>
+<span class="text-indigo-300" id="python-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="python-bar" style="width: 0%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-gray-300">Sketchware</span>
+<span class="text-indigo-300" id="sketchware-percent">0%</span>
+</div>
+<div class="w-full bg-gray-700 rounded-full h-2.5">
+<div class="progress-bar bg-indigo-500 h-2.5 rounded-full" id="sketchware-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-16 section">
+<div class="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm border border-gray-700/50">
+<h2 class="text-2xl font-semibold mb-6 text-indigo-400 flex items-center">
+<i class="fas fa-address-book mr-3"></i> Kontak Ranz XD
+    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<a class="flex items-center p-4 bg-gray-700/50 hover:bg-gray-700 rounded-lg transition-colors duration-300" href="https://wa.me/6285150558775" target="_blank">
+<div class="bg-green-600 p-3 rounded-full mr-4">
+<i class="fab fa-whatsapp text-white text-xl"></i>
+</div>
+<div>
+<h3 class="font-medium">WhatsApp</h3>
+<p class="text-sm text-gray-400">085150558775</p>
+</div>
+</a>
+<a class="flex items-center p-4 bg-gray-700/50 hover:bg-gray-700 rounded-lg transition-colors duration-300" href="https://t.me/ena4kbgtt" target="_blank">
+<div class="bg-blue-500 p-3 rounded-full mr-4">
+<i class="fab fa-telegram text-white text-xl"></i>
+</div>
+<div>
+<h3 class="font-medium">Telegram</h3>
+<p class="text-sm text-gray-400">@Ranzneweraa</p>
+</div>
+</a>
+<a class="flex items-center p-4 bg-gray-700/50 hover:bg-gray-700 rounded-lg transition-colors duration-300" href="https://www.tiktok.com/@penjahattmuu_25" target="_blank">
+<div class="bg-black p-3 rounded-full mr-4">
+<i class="fab fa-tiktok text-white text-xl"></i>
+</div>
+<div>
+<h3 class="font-medium">TikTok</h3>
+<p class="text-sm text-gray-400">@penjahattmuu_25</p>
+</div>
+</a>
+</div>
+</div>
+</section>
+<section class="mb-16">
+<div class="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm border border-gray-700/50">
+<h2 class="text-2xl font-semibold mb-6 text-indigo-400 flex items-center">
+<i class="fas fa-heart mr-3"></i> My Girl💕
+        </h2>
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="waifu-card w-full md:w-1/3 bg-gray-700/50 rounded-xl overflow-hidden border border-gray-600/50">
+<img alt="Diana Ramadani" class="w-full h-64 object-cover" src="images/gnoz1c.jpg">
+<div class="p-4">
+<h3 class="text-xl font-bold text-center text-indigo-300 mb-3">Diana Ramadani</h3>
+<div class="grid grid-cols-2 gap-3 text-sm">
+<div class="flex items-center"><i class="fas fa-birthday-cake mr-2 text-indigo-400"></i> <span>14 tahun</span></div>
+<div class="flex items-center"><i class="fas fa-calendar-day mr-2 text-indigo-400"></i> <span>25 agustus</span></div>
+<div class="flex items-center col-span-2"><i class="fas fa-palette mr-2 text-indigo-400"></i><span>Rambut hitam</span></div>
+</div>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-xl font-semibold mb-4 text-indigo-300">Tentang Pacar Gweh</h3>
+<p class="text-gray-300">Dia Lucu Cantik Suka Ngambekkan Tapi Gua Tetep Sayang... 🤩</p>
+</div>
+</div>
+</div>
+</section>
+<footer class="text-center py-8">
+<div class="bg-gray-800/50 rounded-xl p-6 backdrop-blur-sm border border-gray-700/50">
+<p class="text-xl mb-4">Terima kasih telah mampir di website kuu 🙏</p>
+<div class="flex justify-center space-x-6 mb-4">
+<a class="text-gray-400 hover:text-green-500" href="https://wa.me/6285150558775" target="_blank"><i class="fab fa-whatsapp text-2xl"></i></a>
+<a class="text-gray-400 hover:text-blue-400" href="https://t.me/UCOK109" target="_blank"><i class="fab fa-telegram text-2xl"></i></a>
+</div>
+<p class="text-sm text-gray-500">© 2025 Khafa XD. All rights reserved.</p>
+</div>
+</footer>
+</div>
+</section>
+<section class="hidden space-y-6" id="music">
+<h1 class="text-2xl font-bold">🎵 Cari Lagu</h1>
+<!-- Search Lagu Spotify -->
+<div class="bg-card p-6 rounded-xl border border-border space-y-4">
+<p class="text-muted">Cari lagu dari Spotify, contoh: <i>Night Changes</i></p>
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="spotifyQuery" placeholder="Nama lagu di Spotify..." type="text">
+<button class="bg-green-600 hover:bg-green-700 text-white w-full p-3 rounded font-bold" onclick="searchSpotify()">🔍 Cari Lagu Spotify</button>
+<div class="space-y-4" id="spotifyResult"></div>
+</div>
+<!-- Search Lagu YouTube -->
+<div class="bg-card p-6 rounded-xl border border-border space-y-4">
+<p class="text-muted">Cari lagu dari YouTube, contoh: <i>blue yung kai</i></p>
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="laguQuery" placeholder="Nama lagu..." type="text">
+<button class="bg-accent hover:bg-accent-hover text-white w-full p-3 rounded font-bold" onclick="cariLagu()">🔍 Cari &amp; Putar</button>
+<div class="space-y-4" id="laguResult"></div>
+</div>
+</section>
+<section class="hidden space-y-4" id="chatbotDeepSeek">
+<h1 class="text-2xl font-bold">🤖 Khafa XD DeepSeek AI</h1>
+<div class="bg-card rounded-xl border border-border flex flex-col h-[80vh] overflow-hidden">
+<!-- Header -->
+<div class="bg-slate-800 p-4 text-center font-bold">Khafa XD DeepSeek AI</div>
+<!-- Chat Box -->
+<div class="flex-1 p-4 overflow-y-auto space-y-2" id="chatBoxDeepSeek"></div>
+<!-- Input + Button -->
+<div class="flex items-center p-3 bg-slate-900 w-full overflow-hidden rounded-b-xl">
+<input class="flex-1 p-2 rounded bg-slate-700 text-white border border-slate-600 focus:outline-none" id="userInputDeepSeek" onkeypress="handleEnterDeepSeek(event)" placeholder="Ketik pesan..." type="text">
+<button class="ml-2 flex-shrink-0 w-12 h-12 bg-accent hover:bg-accent-hover text-white font-bold rounded flex items-center justify-center" onclick="sendMessageDeepSeek()">
+        ➤
+      </button>
+</div>
+</div>
+</section>
+<section class="hidden space-y-6" id="apkbuilder">
+<div class="bg-card p-6 rounded-xl border border-border max-w-xl mx-auto">
+<h1 class="text-2xl font-bold text-center text-green-400">📲 Buat APK dari Website</h1>
+<div class="space-y-3 mt-4">
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="apkUrl" placeholder="Masukkan URL Website (https://...)" type="url">
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="apkEmail" placeholder="Email kamu (buat notif)" type="email">
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="apkName" placeholder="Nama Aplikasi ex:khafaapp" type="text">
+<button class="w-full mt-3 p-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded" onclick="buatAPKBaru()">🚀 Buat APK</button>
+</div>
+<div class="mt-6 hidden text-center text-sm text-cyan-300 font-mono" id="apkProgress"></div>
+<div class="mt-4 hidden text-white space-y-3 text-sm" id="apkHasil"></div>
+</div>
+</section>
+<!-- ===== TikTok Downloader SECTION ===== -->
+<section class="hidden space-y-6" id="tiktok">
+<div class="bg-card p-6 rounded-xl border border-border text-white">
+<h1 class="text-2xl font-bold text-cyan-400 mb-4 text-center">📥 TikTok Downloader by Khafa XD</h1>
+<!-- Input & Buttons for Download -->
+<input class="w-full p-3 rounded bg-bg border border-border mb-3 text-white" id="tiktokUrl" placeholder="Masukkan URL TikTok..." type="text">
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-green-600 hover:bg-green-700 text-white py-2 rounded font-bold" onclick="downloadVideoTiktok()">⬇️ Download Video</button>
+<button class="bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-bold" onclick="downloadAudioTiktok()">🎧 Download Audio</button>
+</div>
+<!-- Result Box -->
+<div class="mt-6 space-y-4" id="resultTiktok"></div>
+<hr class="my-6 border-border">
+<!-- Search TikTok Section -->
+<h2 class="text-xl font-semibold text-indigo-400">🔎 Cari Video TikTok</h2>
+<input class="w-full p-3 rounded bg-bg border border-border mb-3 text-white" id="searchTiktokQuery" placeholder="Cari video TikTok..." type="text">
+<button class="bg-accent hover:bg-accent-hover text-black font-bold py-2 w-full rounded" onclick="searchTiktok()">🔍 Cari Video</button>
+<div class="mt-6 space-y-6" id="searchTiktokResults"></div>
+</div>
+</section>
+<!-- Get Code Section -->
+<section class="hidden space-y-6" id="getcode">
+<h1 class="text-2xl font-bold">📄 Get Website Code</h1>
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="urlInput" placeholder="Masukkan URL lengkap (https://...)" type="url">
+<button class="bg-accent hover:bg-accent-hover text-white w-full p-3 rounded font-bold" onclick="ambilWebsite()">🌐 Ambil Website</button>
+<div class="hidden space-y-4" id="previewArea">
+<div class="flex gap-4 flex-wrap">
+<button class="bg-indigo-600 text-white px-4 py-2 rounded" onclick="tampilkanPreview()">👁️ Preview</button>
+<button class="bg-yellow-600 text-white px-4 py-2 rounded" onclick="tampilkanKode()">📜 Lihat Kode</button>
+<button class="bg-slate-700 text-white px-4 py-2 rounded" onclick="salinKode()">📋 Salin</button>
+<button class="bg-green-600 text-white px-4 py-2 rounded" onclick="kirimTelegram()">🚀 Kirim ke Telegram</button>
+</div>
+<iframe class="w-full h-[500px] bg-white rounded hidden" id="previewFrame"></iframe>
+<pre class="w-full h-[500px] bg-black text-green-400 p-3 rounded overflow-auto hidden" id="kodeHTML"></pre>
+</div>
+</section>
+<!-- Deploy HTML Section -->
+<section class="hidden space-y-8" id="deploy">
+<div class="bg-card p-6 rounded-xl shadow space-y-4 border border-border">
+<input class="w-full p-3 rounded bg-bg border border-border" id="projectName" placeholder="Nama Project" type="text">
+<input accept=".html" class="w-full p-3 rounded bg-bg border border-border" id="htmlFile" type="file">
+<button class="bg-accent hover:bg-accent-hover text-white w-full p-3 rounded font-bold" onclick="deployHTML()">Deploy</button>
+<div class="flex gap-3 mt-2 hidden" id="deployActions">
+<button class="flex-1 bg-slate-700 text-white py-2 rounded" onclick="copyLink()">Salin Link</button>
+<button class="flex-1 bg-indigo-600 text-white py-2 rounded" onclick="viewSite()">Lihat Web</button>
+</div>
+</div>
+<div class="bg-card p-6 rounded-xl border border-border">
+<h2 class="text-lg font-semibold mb-3">📃 List Project</h2>
+<button class="bg-accent hover:bg-accent-hover text-white w-full p-3 rounded font-bold mb-3" onclick="listProjects()">Tampilkan</button>
+<div class="text-sm space-y-2" id="projectList"></div>
+</div>
+<div class="bg-card p-6 rounded-xl border border-border">
+<h2 class="text-lg font-semibold mb-2">🗑️ Hapus Project</h2>
+<select class="w-full p-3 rounded bg-bg border border-border mb-3" id="deleteProjectSelect">
+<option value="">Pilih Proyek untuk Dihapus</option>
+<!-- Proyek akan diisi melalui JavaScript -->
+</select>
+<button class="bg-red-600 hover:bg-red-700 text-white w-full p-3 rounded font-bold" onclick="deleteSelectedProject()">Hapus</button>
+</div>
+<div class="text-sm text-muted text-center mt-4" id="message"></div>
+</section>
+<section class="hidden space-y-4" id="chatbot">
+<h1 class="text-2xl font-bold">🤖 Ranz XD AI Assistant</h1>
+<div class="bg-card rounded-xl border border-border flex flex-col h-[80vh] overflow-hidden">
+<div class="bg-slate-800 p-4 text-center font-bold">Ranz XD AI</div>
+<div class="flex-1 p-4 overflow-y-auto space-y-2" id="chatBox"></div>
+<div class="flex p-3 bg-slate-900">
+<input class="flex-1 p-2 rounded bg-slate-700 text-white mr-2 border border-slate-600" id="userInput" onkeypress="handleEnter(event)" placeholder="Ketik pesan..." type="text">
+<button class="bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded font-bold" onclick="sendMessage()">➤</button>
+</div>
+</div>
+</section>
+<section class="hidden space-y-6" id="scan">
+<h1 class="text-2xl font-bold">🔍 Scan Phishing</h1>
+<div class="bg-card p-6 rounded-xl border border-border space-y-4">
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="scanUrl" placeholder="Masukkan URL untuk di-scan" type="url">
+<input class="w-full p-3 rounded bg-bg border border-border text-white" id="scanFile" type="file">
+<button class="bg-red-600 hover:bg-red-700 text-white w-full p-3 rounded font-bold" onclick="scanPhishing()">🚨 Scan Sekarang</button>
+<div class="text-sm text-white mt-4" id="scanResult"></div>
+</div>
+</section>
+</main>
+
+
+
+
+<script src="js/script.js"></script>
+
+</body></html>
